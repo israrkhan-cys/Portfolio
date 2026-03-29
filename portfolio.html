@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muhammad Israr — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cyan: #00f5ff;
+    --cyan-dim: rgba(0,245,255,0.15);
+    --cyan-glow: rgba(0,245,255,0.06);
+    --purple: #b57bee;
+    --text: #e8eaf0;
+    --text-muted: #7a8a9a;
+    --bg: #060b14;
+    --surface: #0c1220;
+    --border: rgba(0,245,255,0.12);
+    --border-strong: rgba(0,245,255,0.3);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Syne', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; min-height: 100vh; }
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 25% 40%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 40% 8%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 55% 55%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 70% 20%, rgba(255,255,255,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 85% 70%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 15% 80%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 35%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 60% 85%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 35% 65%, rgba(255,255,255,0.6) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 78% 50%, rgba(0,245,255,0.4) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 20% 30%, rgba(181,123,238,0.4) 0%, transparent 100%);
+    pointer-events: none; z-index: 0;
+  }
+  body::after {
+    content: '';
+    position: fixed; top: -20%; right: -10%;
+    width: 60vw; height: 60vw;
+    background: radial-gradient(ellipse at center, rgba(0,245,255,0.04) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 3rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(6,11,20,0.85);
+    backdrop-filter: blur(12px);
+  }
+  .nav-logo { font-family: 'Space Mono', monospace; font-size: 14px; color: var(--cyan); letter-spacing: 0.1em; text-decoration: none; }
+  .nav-logo span { color: var(--text-muted); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--text-muted); text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--cyan); }
+  section { position: relative; z-index: 1; }
+  #hero { min-height: 100vh; display: flex; align-items: center; padding: 8rem 3rem 4rem; max-width: 1100px; margin: 0 auto; }
+  .hero-inner { display: grid; grid-template-columns: 1fr auto; gap: 4rem; align-items: center; width: 100%; }
+  .hero-tag { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--cyan); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
+  .hero-tag::before { content: ''; display: inline-block; width: 28px; height: 1px; background: var(--cyan); }
+  h1 { font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 800; line-height: 1; letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+  h1 .name-accent { color: var(--cyan); display: block; }
+  .hero-desc { font-family: 'Space Mono', monospace; font-size: 13px; color: var(--text-muted); line-height: 1.8; max-width: 440px; margin-bottom: 2.5rem; }
+  .hero-cta { display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1.75rem; border: 1px solid var(--cyan); color: var(--cyan); font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: background 0.2s; cursor: pointer; background: transparent; }
+  .hero-cta:hover { background: var(--cyan-dim); }
+  .hud-graphic { position: relative; width: 260px; height: 260px; flex-shrink: 0; }
+  .hud-ring { position: absolute; border-radius: 50%; border: 1px solid var(--border-strong); animation: spin linear infinite; }
+  .hud-ring:nth-child(1) { inset: 0; border-top-color: var(--cyan); animation-duration: 12s; }
+  .hud-ring:nth-child(2) { inset: 20px; border-color: rgba(181,123,238,0.2); border-right-color: var(--purple); animation-duration: 8s; animation-direction: reverse; }
+  .hud-ring:nth-child(3) { inset: 45px; border-color: rgba(0,245,255,0.1); border-bottom-color: var(--cyan); animation-duration: 15s; }
+  .hud-center { position: absolute; inset: 75px; background: var(--cyan-glow); border-radius: 50%; border: 1px solid var(--border-strong); display: flex; align-items: center; justify-content: center; }
+  .hud-center-text { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--cyan); text-align: center; line-height: 1.6; }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  .section-wrap { max-width: 1100px; margin: 0 auto; padding: 6rem 3rem; }
+  .section-header { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 3.5rem; }
+  .section-num { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--cyan); letter-spacing: 0.1em; }
+  .section-line { flex: 1; height: 1px; background: var(--border); max-width: 60px; }
+  h2 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.02em; }
+  #about { border-top: 1px solid var(--border); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .about-text p { font-family: 'Space Mono', monospace; font-size: 13px; color: var(--text-muted); line-height: 1.9; margin-bottom: 1.2rem; }
+  .about-text p strong { color: var(--text); font-weight: 700; }
+  .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .stat-card { background: var(--surface); border: 1px solid var(--border); padding: 1.25rem; position: relative; overflow: hidden; }
+  .stat-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--cyan); opacity: 0.5; }
+  .stat-number { font-size: 2rem; font-weight: 800; color: var(--cyan); display: block; }
+  .stat-label { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.25rem; display: block; }
+  #projects { border-top: 1px solid var(--border); }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+  .project-card { background: var(--surface); border: 1px solid var(--border); padding: 1.75rem; position: relative; overflow: hidden; transition: border-color 0.25s, transform 0.25s; cursor: default; }
+  .project-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: var(--cyan); transform: scaleX(0); transition: transform 0.3s ease; transform-origin: left; }
+  .project-card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+  .project-card:hover::after { transform: scaleX(1); }
+  .project-num { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--cyan); opacity: 0.5; margin-bottom: 1.25rem; display: block; }
+  .project-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem; }
+  .project-card p { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--text-muted); line-height: 1.8; margin-bottom: 1.25rem; }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag { font-family: 'Space Mono', monospace; font-size: 10px; padding: 3px 10px; border: 1px solid var(--border-strong); color: var(--cyan); letter-spacing: 0.06em; text-transform: uppercase; }
+  #skills { border-top: 1px solid var(--border); }
+  .skills-wrap { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 2rem; }
+  .skill-group h3 { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--cyan); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+  .skill-item { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.6rem; }
+  .skill-bar-track { flex: 1; height: 2px; background: var(--border); position: relative; overflow: hidden; }
+  .skill-bar-fill { position: absolute; top: 0; left: 0; bottom: 0; background: var(--cyan); opacity: 0.7; }
+  .skill-name { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--text-muted); min-width: 80px; }
+  #contact { border-top: 1px solid var(--border); }
+  .contact-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .contact-info p { font-family: 'Space Mono', monospace; font-size: 13px; color: var(--text-muted); line-height: 1.8; margin-bottom: 2rem; }
+  .contact-link { display: flex; align-items: center; gap: 1rem; padding: 0.875rem 1.25rem; border: 1px solid var(--border); text-decoration: none; color: var(--text); font-family: 'Space Mono', monospace; font-size: 12px; margin-bottom: 0.75rem; transition: border-color 0.2s, background 0.2s; }
+  .contact-link:hover { border-color: var(--border-strong); background: var(--cyan-glow); color: var(--cyan); }
+  .contact-link-icon { color: var(--cyan); font-size: 16px; width: 20px; text-align: center; }
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-field { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-field label { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .form-field input, .form-field textarea { background: var(--surface); border: 1px solid var(--border); color: var(--text); font-family: 'Space Mono', monospace; font-size: 13px; padding: 0.75rem 1rem; outline: none; resize: none; transition: border-color 0.2s; }
+  .form-field input:focus, .form-field textarea:focus { border-color: var(--border-strong); }
+  .form-field textarea { min-height: 120px; }
+  .submit-btn { padding: 0.875rem 2rem; background: transparent; border: 1px solid var(--cyan); color: var(--cyan); font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; align-self: flex-start; }
+  .submit-btn:hover { background: var(--cyan-dim); }
+  footer { position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 2rem 3rem; max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+  footer p { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--text-muted); }
+  .footer-status { display: flex; align-items: center; gap: 0.5rem; font-family: 'Space Mono', monospace; font-size: 11px; color: var(--text-muted); }
+  .status-dot { width: 6px; height: 6px; background: #2ecc71; border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+  .cert-list { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+  .cert-badge { font-family: 'Space Mono', monospace; font-size: 11px; padding: 5px 14px; border: 1px solid rgba(181,123,238,0.35); color: var(--purple); letter-spacing: 0.06em; }
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    #hero { padding: 7rem 1.5rem 3rem; }
+    .hero-inner { grid-template-columns: 1fr; }
+    .hud-graphic { display: none; }
+    .section-wrap { padding: 4rem 1.5rem; }
+    .about-grid, .contact-wrap { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-logo">ISRAR<span>://</span>PORTFOLIO</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag">CS Student · Cybersecurity</div>
+      <h1>Hello, I'm<span class="name-accent">Muhammad Israr.</span></h1>
+      <p class="hero-desc">CS student at FAST University, Peshawar — focused on systems programming, cybersecurity research, and building things that work at the metal level. C++, Linux, and curiosity as core tools.</p>
+      <a href="#projects" class="hero-cta">View Projects →</a>
+    </div>
+    <div class="hud-graphic" aria-hidden="true">
+      <div class="hud-ring"></div>
+      <div class="hud-ring"></div>
+      <div class="hud-ring"></div>
+      <div class="hud-center"><div class="hud-center-text">SYS<br>ONLINE</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-wrap">
+    <div class="section-header">
+      <span class="section-num">01.</span>
+      <div class="section-line"></div>
+      <h2>About Me</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a <strong>Computer Science student at FAST University, Peshawar</strong> (graduating May 2028), building expertise in systems programming, cybersecurity, and software engineering from the ground up.</p>
+        <p>My coursework spans OS internals, data structures, AI, and database management — but my real learning happens through projects. I enjoy working close to the machine: C++, Linux, file systems, and networks.</p>
+        <p>I'm actively <strong>self-learning cybersecurity</strong>, exploring bug bounty, reverse engineering, and Linux tooling — and picking up German on the side for future opportunities abroad.</p>
+        <div class="cert-list">
+          <span class="cert-badge">Intro to Cybersecurity</span>
+          <span class="cert-badge">Network Basics</span>
+        </div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card"><span class="stat-number">4</span><span class="stat-label">Projects Built</span></div>
+        <div class="stat-card"><span class="stat-number">2028</span><span class="stat-label">Expected Grad</span></div>
+        <div class="stat-card"><span class="stat-number">3</span><span class="stat-label">Languages Spoken</span></div>
+        <div class="stat-card"><span class="stat-number">∞</span><span class="stat-label">Curiosity</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-wrap">
+    <div class="section-header">
+      <span class="section-num">02.</span>
+      <div class="section-line"></div>
+      <h2>Projects</h2>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <span class="project-num">// 001</span>
+        <h3>SIMFS — Linux File System Simulator</h3>
+        <p>A Linux-style hierarchical file system simulator using n-ary trees. Supports create, read, update, delete, move, copy, and recursive wildcard search. Features a terminal interface with ANSI colors and RAII-based memory management.</p>
+        <div class="tags"><span class="tag">C++</span><span class="tag">Systems</span><span class="tag">Linux</span><span class="tag">Data Structures</span></div>
+      </div>
+      <div class="project-card">
+        <span class="project-num">// 002</span>
+        <h3>Weather Application</h3>
+        <p>A desktop weather application built with the Qt framework. Connects to a live weather API to fetch real-time global data and presents it through dynamic GUI components.</p>
+        <div class="tags"><span class="tag">Qt</span><span class="tag">C++</span><span class="tag">API</span><span class="tag">GUI</span></div>
+      </div>
+      <div class="project-card">
+        <span class="project-num">// 003</span>
+        <h3>Cyber Incident Tracker</h3>
+        <p>A full-stack incident management system with role-based access (admin, analyst, viewer), a six-table MySQL schema, and a Flask-powered dashboard for tracking and logging security events.</p>
+        <div class="tags"><span class="tag">Flask</span><span class="tag">MySQL</span><span class="tag">Python</span><span class="tag">HTML/CSS</span></div>
+      </div>
+      <div class="project-card">
+        <span class="project-num">// 004</span>
+        <h3>University Website Clone</h3>
+        <p>A responsive, pixel-faithful clone of a university website interface — built entirely with HTML and CSS, demonstrating structured layout and navigation patterns.</p>
+        <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">Responsive</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-wrap">
+    <div class="section-header">
+      <span class="section-num">03.</span>
+      <div class="section-line"></div>
+      <h2>Skills</h2>
+    </div>
+    <div class="skills-wrap">
+      <div class="skill-group">
+        <h3>Languages</h3>
+        <div class="skill-item"><span class="skill-name">C++</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Python</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:75%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">C</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:70%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">HTML/CSS</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:78%"></div></div></div>
+      </div>
+      <div class="skill-group">
+        <h3>Tools & Frameworks</h3>
+        <div class="skill-item"><span class="skill-name">Git / GitHub</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:80%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Linux (Arch)</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:82%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Qt Framework</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:72%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Flask</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:55%"></div></div></div>
+      </div>
+      <div class="skill-group">
+        <h3>Python Libraries</h3>
+        <div class="skill-item"><span class="skill-name">Pandas</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:70%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Matplotlib</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:65%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Plotly</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:60%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">pytest</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:55%"></div></div></div>
+      </div>
+      <div class="skill-group">
+        <h3>Cybersecurity</h3>
+        <div class="skill-item"><span class="skill-name">Networking</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:70%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Linux Tools</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:75%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Bug Bounty</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:40%"></div></div></div>
+        <div class="skill-item"><span class="skill-name">Reverse Eng.</span><div class="skill-bar-track"><div class="skill-bar-fill" style="width:35%"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-wrap">
+    <div class="section-header">
+      <span class="section-num">04.</span>
+      <div class="section-line"></div>
+      <h2>Contact</h2>
+    </div>
+    <div class="contact-wrap">
+      <div class="contact-info">
+        <p>Open to collaborations, cybersecurity research, internships, and interesting conversations. Reach out through any channel.</p>
+        <a href="mailto:7israr.work@gmail.com" class="contact-link">
+          <span class="contact-link-icon">@</span>
+          7israr.work@gmail.com
+        </a>
+        <a href="https://github.com/israrkhan-cys" class="contact-link">
+          <span class="contact-link-icon">⌥</span>
+          github.com/israrkhan-cys
+        </a>
+        <a href="https://www.linkedin.com/in/muhammad-israr-01364a321" class="contact-link">
+          <span class="contact-link-icon">↗</span>
+          linkedin.com/in/muhammad-israr-01364a321
+        </a>
+      </div>
+      <div class="contact-form">
+        <div class="form-field"><label>Name</label><input type="text" placeholder="Your name"></div>
+        <div class="form-field"><label>Email</label><input type="email" placeholder="your@email.com"></div>
+        <div class="form-field"><label>Message</label><textarea placeholder="What's on your mind?"></textarea></div>
+        <button class="submit-btn">Transmit →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 Muhammad Israr — Built with intent.</p>
+  <div class="footer-status"><div class="status-dot"></div>Available for opportunities</div>
+</footer>
+
+</body>
+</html>
